@@ -13,8 +13,13 @@ class Dexec < Formula
 
     # Install Go dependencies
     system 'go', 'get', 'github.com/docker-exec/dexec/cli'
-    system 'go', 'get', 'github.com/docker-exec/dexec/docker'
     system 'go', 'get', 'github.com/docker-exec/dexec/util'
+    stable do
+      system 'go', 'get', 'github.com/docker-exec/dexec/docker'
+    end
+    head do
+      system 'go', 'get', 'github.com/docker-exec/dexec/dexec'
+    end
 
     # Build and install dexec
     system 'go', 'build', '-o', 'dexec'
