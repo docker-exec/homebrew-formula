@@ -4,7 +4,7 @@ class Dexec < Formula
   homepage 'https://docker-exec.github.io/'
   head 'https://github.com/docker-exec/dexec.git'
 
-  depends_on 'go' => :build
+  depends_on 'go', 'hg' => :build
 
   def install
     ENV['GOPATH'] = buildpath
