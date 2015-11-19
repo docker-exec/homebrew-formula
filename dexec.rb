@@ -13,7 +13,7 @@ class Dexec < Formula
       require 'fileutils'
       Dir.entries('.')
         .delete_if { |x| x == 'src' || /^\.+$/ =~ x }
-        .each { |x| FileUtils.mv(x, "src/github.com/docker-exec/dexec/#{x}") }
+        .each { |x| FileUtils.mv(x, "#{buildpath}/src/github.com/docker-exec/dexec/#{x}") }
 
       # Install Go dependencies
       system 'go', 'get', "#{buildpath}src/github.com/docker-exec/dexec/..."
