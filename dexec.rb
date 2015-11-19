@@ -9,22 +9,22 @@ class Dexec < Formula
 
   def install
     ENV['GOPATH'] = buildpath
+
     require 'fileutils'
-    puts "#{buildpath}/src/github.com/docker-exec"
     FileUtils.mkdir_p("#{buildpath}/src/github.com/docker-exec")
-    puts "made dir..."
+
     mkdir "#{buildpath}/src/github.com/docker-exec/dexec" do
       Dir.entries("#{buildpath}")
         .delete_if { |x| x == 'src' || /^\.+$/ =~ x }
-        .each { |x| FileUtils.mv(x, "#{buildpath}/src/github.com/docker-exec/dexec/#{x}") }
+        .each { |x|
+          FileUtils.mv("#{buildpath}/#{x}", "#{buildpath}/src/github.com/docker-exec/dexec/#{x}")
+        }
 
-      # Install Go dependencies
       system 'go', 'get', "./..."
-
-      # Build and install dexec
-      system 'go', 'build', "#{buildpath}/src/github.com/docker-exec/dexec"
-      bin.install 'dexec'
+      system 'go', 'install'
     end
+
+    bin.install "#{buildpath}/bin/dexec"
   end
 
   test do
