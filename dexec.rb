@@ -9,8 +9,9 @@ class Dexec < Formula
 
   def install
     ENV['GOPATH'] = buildpath
+    require 'fileutils'
+    FileUtils.mkdir_p("#{buildpath}/src/github.com/docker-exec")
     mkdir "#{buildpath}/src/github.com/docker-exec/dexec" do
-      require 'fileutils'
       Dir.entries('.')
         .delete_if { |x| x == 'src' || /^\.+$/ =~ x }
         .each { |x| FileUtils.mv(x, "#{buildpath}/src/github.com/docker-exec/dexec/#{x}") }
