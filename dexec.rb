@@ -8,14 +8,15 @@ class Dexec < Formula
   depends_on 'hg' => :build
 
   def install
-    ENV['GOPATH'] = buildpath
+    mkdir 'build' do
+      ENV['GOPATH'] = "#{buildpath}/build"
+      # Install Go dependencies
+      system 'go', 'get', '../...'
 
-    # Install Go dependencies
-    system 'go', 'get', './...'
-
-    # Build and install dexec
-    system 'go', 'build', '-o', 'dexec'
-    bin.install 'dexec'
+      # Build and install dexec
+      system 'go', 'build', '..'
+      bin.install 'dexec'
+    end
   end
 
   test do
