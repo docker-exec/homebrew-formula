@@ -16,10 +16,10 @@ class Dexec < Formula
         .each { |x| FileUtils.mv(x, "src/github.com/docker-exec/dexec/#{x}") }
 
       # Install Go dependencies
-      system 'go', 'get', 'src/github.com/docker-exec/dexec/...'
+      system 'go', 'get', "#{buildpath}src/github.com/docker-exec/dexec/..."
 
       # Build and install dexec
-      system 'go', 'build', 'src/github.com/docker-exec/dexec'
+      system 'go', 'build', "#{buildpath}src/github.com/docker-exec/dexec"
       bin.install 'dexec'
     end
   end
