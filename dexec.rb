@@ -14,15 +14,15 @@ class Dexec < Formula
     FileUtils.mkdir_p("#{buildpath}/src/github.com/docker-exec")
     puts "made dir..."
     mkdir "#{buildpath}/src/github.com/docker-exec/dexec" do
-      Dir.entries('.')
+      Dir.entries("#{buildpath}")
         .delete_if { |x| x == 'src' || /^\.+$/ =~ x }
         .each { |x| FileUtils.mv(x, "#{buildpath}/src/github.com/docker-exec/dexec/#{x}") }
 
       # Install Go dependencies
-      system 'go', 'get', "#{buildpath}src/github.com/docker-exec/dexec/..."
+      system 'go', 'get', "./..."
 
       # Build and install dexec
-      system 'go', 'build', "#{buildpath}src/github.com/docker-exec/dexec"
+      system 'go', 'build', "#{buildpath}/src/github.com/docker-exec/dexec"
       bin.install 'dexec'
     end
   end
