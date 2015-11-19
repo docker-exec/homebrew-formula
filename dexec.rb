@@ -10,9 +10,7 @@ class Dexec < Formula
     ENV['GOPATH'] = buildpath
 
     # Install Go dependencies
-    system 'go', 'get', 'github.com/docker-exec/dexec/cli'
-    system 'go', 'get', 'github.com/docker-exec/dexec/util'
-    system 'go', 'get', 'github.com/docker-exec/dexec/dexec'
+    system 'go', 'get', './...'
 
     # Build and install dexec
     system 'go', 'build', '-o', 'dexec'
