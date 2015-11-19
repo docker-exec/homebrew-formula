@@ -2,8 +2,6 @@
 class Dexec < Formula
   desc 'Command line interface for running code with Docker Exec images'
   homepage 'https://docker-exec.github.io/'
-  version '1.0.3'
-  url 'https://github.com/docker-exec/dexec.git', tag: "v#{version}"
   head 'https://github.com/docker-exec/dexec.git'
 
   depends_on 'go' => :build
@@ -14,12 +12,7 @@ class Dexec < Formula
     # Install Go dependencies
     system 'go', 'get', 'github.com/docker-exec/dexec/cli'
     system 'go', 'get', 'github.com/docker-exec/dexec/util'
-    stable do
-      system 'go', 'get', 'github.com/docker-exec/dexec/docker'
-    end
-    head do
-      system 'go', 'get', 'github.com/docker-exec/dexec/dexec'
-    end
+    system 'go', 'get', 'github.com/docker-exec/dexec/dexec'
 
     # Build and install dexec
     system 'go', 'build', '-o', 'dexec'
