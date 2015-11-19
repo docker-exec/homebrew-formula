@@ -8,15 +8,21 @@ class Dexec < Formula
   depends_on 'hg' => :build
 
   def install
-    mkdir 'build' do
-      ENV['GOPATH'] = "#{buildpath}/build"
+    ENV['GOPATH'] = buildpath
+    mkdir "src/github.com/docker-exec/dexec"
+      require 'fileutils'
+      Dir.entries('.')
+        .delete_if { |x| x == 'src' || /^\.+$/ =~ x }
+        .each { |x| FileUtils.mv(x, "src/github.com/docker-exec/dexec/#{x}") }
+
       # Install Go dependencies
-      system 'go', 'get', '../...'
+      system 'go', 'get', 'src/github.com/docker-exec/dexec/...'
 
       # Build and install dexec
-      system 'go', 'build', '..'
+      system 'go', 'build', 'src/github.com/docker-exec/dexec'
       bin.install 'dexec'
     end
+
   end
 
   test do
