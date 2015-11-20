@@ -9,6 +9,7 @@ class Dexec < Formula
 
   def install
     ENV['GOPATH'] = buildpath
+    ENV['GO15VENDOREXPERIMENT'] = "1"
 
     require 'fileutils'
     FileUtils.mkdir_p("#{buildpath}/src/github.com/docker-exec")
@@ -20,7 +21,6 @@ class Dexec < Formula
           FileUtils.mv("#{buildpath}/#{x}", "#{buildpath}/src/github.com/docker-exec/dexec/#{x}")
         }
 
-      system 'go', 'get', "./..."
       system 'go', 'install'
     end
 
